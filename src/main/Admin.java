@@ -28,7 +28,7 @@ public class Admin
             case 3:
                 terminatemembership();
             default:
-                System.out.println("Enter a valid choice.");
+                System.out.println("Enter a valid choice: ");
             break;
         }
 
