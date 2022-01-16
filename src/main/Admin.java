@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Admin 
 {
-    String Name;
-    int ID;
-    String Username;
+    static String Name;
+    static int ID;
+    static String  Username;
 
     String newline = System.lineSeparator();
     
