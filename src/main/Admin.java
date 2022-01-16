@@ -44,7 +44,6 @@ public class Admin
         scan.close();
     }
 
-
     public static void addstaff() throws FileNotFoundException
     
     {   

@@ -224,7 +224,6 @@ public class LMS
         }
     }
         
-
     public static void StudentRegistration() throws FileNotFoundException
     {
         Scanner sc=new Scanner(System.in);
