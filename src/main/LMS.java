@@ -24,7 +24,7 @@ public class LMS
 
     public static void loginmain() throws FileNotFoundException
     {   
-        System.out.println("Welcome to the Library Management System");
+        System.out.println("Home Page Of Library Management System");
         Scanner scan = new Scanner(System.in);
         String newline = System.lineSeparator();
         System.out.println("Choose (Enter Number)" + newline + "1. Login" + newline + "2. Registration");
@@ -91,41 +91,97 @@ public class LMS
     public static void AdminRegistration() throws FileNotFoundException
     {
         Scanner sc=new Scanner(System.in);
-        System.out.println("Welcome To Admin Registration");
-        System.out.println("Enter User Name For Registartion: ");
-        String Uname=sc.nextLine();
-        System.out.println(Uname);
-         
-        System.out.println("Enter Password: ");
-        String Pass=sc.nextLine();
-        System.out.println(Pass);
-         
-        System.out.println("Confirm Password: ");
-        String ConPass=sc.nextLine();
-        System.out.println(ConPass);
-        Uname=Uname.trim();
-        Pass=Pass.trim();
-        ConPass=ConPass.trim();
+        String newline = System.lineSeparator();
+        System.out.println("Enter Admin Acess Code: ");
+        String admina = sc.nextLine();
+        String admina1 = admina.trim();
 
-        String x= Uname+" "+Pass;
-        if(Pass.equals(ConPass))
+        File f = new File("admincodes.txt");
+        Scanner adminc = new Scanner(f);
+
+        while (adminc.hasNextLine())
         {
-             
-              File f = new File("AdminDets.txt");
-              Scanner content = new Scanner(f);
-               
-               
-              int flag=0;
-              while (content.hasNextLine()) {
-                String data = content.nextLine();
-                if(data.equals(x))
+            String adminc1 = adminc.nextLine();
+            if(adminc1.equals(admina1))
+            {
+                System.out.println("****Welcome To Admin Registration****");
+                System.out.println("Enter User Name For Registration: ");
+                String Uname=sc.nextLine();
+                System.out.println(Uname);
+                
+                System.out.println("Enter Password: ");
+                String Pass=sc.nextLine();
+                System.out.println(Pass);
+                
+                System.out.println("Confirm Password: ");
+                String ConPass=sc.nextLine();
+                System.out.println(ConPass);
+                Uname=Uname.trim();
+                Pass=Pass.trim();
+                ConPass=ConPass.trim();
+
+                String x= Uname+" "+Pass;
+                if(Pass.equals(ConPass))
                 {
-                    System.out.println("*****You Are Already Registered*****");
-                    System.out.println("***You can either Register with new details or Login With Current Details***");
-                    flag=1;
+                    
+                    File f1 = new File("AdminDets.txt");
+                    Scanner content = new Scanner(f1);
+                    
+                    
+                    int flag=0;
+                    while (content.hasNextLine()) 
+                    {
+                        String data = content.nextLine();
+                        if(data.equals(x))
+                        {
+                            System.out.println("*****You Are Already Registered*****");
+                            System.out.println("***You can either Register with new details or Login With Current Details***");
+                            flag=1;
+                            System.out.println("1. Registration. ");
+                            System.out.println("2. Login. ");
+                            
+                            System.out.println("Enter your Choice");
+                            int choice=sc.nextInt();
+                            if(choice==1)
+                            {
+                                AdminRegistration();
+                            }
+                            else if(choice==2)
+                            {
+                                AdminLogin();
+                            }
+                            else
+                            {
+                                System.out.println("Choose Proper Option");
+                            }
+                            break;
+                        }
+                    }
+                        if(flag==0)
+                        {
+                            try {
+                                BufferedWriter out = new BufferedWriter(new FileWriter("AdminDets.txt", true)); 
+                                out.write(Uname+" "+Pass+"\n");
+                                out.close();
+            
+                            }
+                            catch (IOException e) {
+                                System.out.println("exception occoured" + e);
+                            }
+                            
+                            System.out.println("Successfully Registered");
+                            System.out.println("Please login");
+                            AdminLogin();
+                        }
+                    content.close();
+                    
+                }
+                else
+                {
+                    System.out.println("Passwords DON'T MATCH. TRY AGAIN.");
                     System.out.println("1. Registration. ");
                     System.out.println("2. Login. ");
-                     
+                    
                     System.out.println("Enter your Choice");
                     int choice=sc.nextInt();
                     if(choice==1)
@@ -140,51 +196,34 @@ public class LMS
                     {
                         System.out.println("Choose Proper Option");
                     }
-                    break;
                 }
-              }
-                if(flag==0)
-                {
-                    try {
-                        BufferedWriter out = new BufferedWriter(new FileWriter("AdminDets.txt", true)); 
-                        out.write(Uname+" "+Pass+"\n");
-                        out.close();
-    
-                    }
-                    catch (IOException e) {
-                        System.out.println("exception occoured" + e);
-                    }
-                     
-                    System.out.println("Successfully Registered");
-                    System.out.println("Please login");
-                    AdminLogin();
-                }
-             content.close();
-             
-        }
-        else
-        {
-            System.out.println("Passwords DON'T MATCH. TRY AGAIN.");
-            System.out.println("1. Registration. ");
-            System.out.println("2. Login. ");
-             
-            System.out.println("Enter your Choice");
-            int choice=sc.nextInt();
-            if(choice==1)
-            {
-                AdminRegistration();
+                sc.close();
             }
-            else if(choice==2)
-            {
-                AdminLogin();
-            }
+
             else
             {
-                System.out.println("Choose Proper Option");
+                System.out.println(">>>>>!!!!Wrong Admin Access Code. Can't register as Admin!!!!<<<<<<");
+                System.out.println("Do you want to go to: " + newline + "1. Admin Login" + newline + "2. Admin Registration" + newline+ "3. Home Page" );
+                System.out.println("Enter Choice: ");
+                int choicehere = sc.nextInt();
+
+                switch (choicehere) 
+                {
+                    case 1:
+                        AdminLogin();
+                        break;
+                    case 2:
+                        AdminRegistration();
+                        break;
+                    case 3:
+                        loginmain();
+                        break;
+                }
             }
+        adminc.close();
         }
-        sc.close();
     }
+        
 
     public static void StudentRegistration() throws FileNotFoundException
     {
@@ -318,9 +357,10 @@ public class LMS
                 {
                     System.out.println("****Login Failed****");
                     System.out.println(">>>Wrong Username Or Password<<<");
-                    System.out.println("You can either Register for ADMIN with new details or try to login again");
-                    System.out.println("1. Registration. ");
-                    System.out.println("2. Login. ");
+                    System.out.println("You can either Register for ADMIN with new details OR try to login again with another Login OR Goto Home Page");
+                    System.out.println("1. Registration (FOR ADMIN) ");
+                    System.out.println("2. Login (FOR ADMIN) ");
+                    System.out.println("3. Go To Home Page");
                      
                     System.out.println("Enter your Choice");
                     int choice=sc.nextInt();
@@ -331,6 +371,10 @@ public class LMS
                     else if(choice==2)
                     {
                         AdminLogin();
+                    }
+                    else if (choice==3)
+                    {
+                        loginmain();
                     }
                     else
                     {
@@ -384,9 +428,10 @@ public class LMS
                 {
                     System.out.println("****Login Failed****");
                     System.out.println(">>>Wrong Username Or Password<<<");
-                    System.out.println("You can either Register for STUDENT with new details or try to login again");
+                    System.out.println("You can either Register for STUDENT with new details OR try to login again with another Login OR Go To Home Page");
                     System.out.println("1. Registration. ");
                     System.out.println("2. Login. ");
+                    System.out.println("3. Go To Home Page");
                      
                     System.out.println("Enter your Choice");
                     int choice=sc.nextInt();
@@ -397,6 +442,10 @@ public class LMS
                     else if(choice==2)
                     {
                         Studentlogin();
+                    }
+                    else if (choice==3)
+                    {
+                        loginmain();
                     }
                     else
                     {

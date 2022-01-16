@@ -205,7 +205,9 @@ public class Admin
             try 
             {
                 FileInputStream fis=new FileInputStream("announcements.txt");       
-                Scanner sc=new Scanner(fis);    
+                Scanner sc=new Scanner(fis);
+                
+                System.out.println("****PAST ANNOUNCEMENTS****");
                
                 while(sc.hasNextLine())  
                 {  
@@ -216,11 +218,12 @@ public class Admin
             
             catch (IOException e) 
             {
-                
+                System.out.println("error occurred" + e);
             }
         }
         scan1.close();
     }   
+    
     public static void terminatemembership()
     {
 
