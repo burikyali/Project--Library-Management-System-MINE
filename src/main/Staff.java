@@ -1,5 +1,9 @@
 package main;
 
-public class Staff {
-    
+public class Staff 
+{
+    public static void staffmain()
+    {
+        
+    }
 }
