@@ -9,10 +9,6 @@ import java.util.Scanner;
 
 public class Admin 
 {
-    static String Name;
-    static int ID;
-    static String  Username;
-
     String newline = System.lineSeparator();
     
     public static void Adminmain() throws FileNotFoundException
@@ -51,8 +47,17 @@ public class Admin
         Scanner sc = new Scanner(System.in);
         System.out.println("Registering/Adding a New STAFF. Enter Details: ");
 
+        System.out.println("Enter Name of Staff: ");
+        String Name=sc.nextLine();
+        System.out.println(Name);
+
+        System.out.println("Enter Desired ID for Staff: ");
+        int ID=sc.nextInt();
+        String IDmain = String.valueOf(ID);
+        System.out.println(IDmain);
+        
         System.out.println("Enter User Name For Staff: ");
-        String Uname=sc.nextLine();
+        String Uname=sc.nextLine() + sc.nextLine();
         System.out.println(Uname);
          
         System.out.println("Enter Password: ");
@@ -65,14 +70,24 @@ public class Admin
         Uname=Uname.trim();
         Pass=Pass.trim();
         ConPass=ConPass.trim();
+        Name=Name.trim();
 
         String x= Uname+" "+Pass;
         if(Pass.equals(ConPass))
         {
              
               File f = new File("StaffDets.txt");
+              File f2 = new File("staffid.txt");
               Scanner content = new Scanner(f);
-               
+              Scanner content2 = new Scanner(f2);
+              
+              while (content2.hasNextLine()) 
+              {
+                String data2 = content2.nextLine();
+                
+                
+              }
+              
                
               int flag=0;
               while (content.hasNextLine()) {
@@ -106,9 +121,13 @@ public class Admin
                 {
                     try {
                         BufferedWriter out = new BufferedWriter(new FileWriter("StaffDets.txt", true)); 
-                        out.write(Uname+" "+Pass+"\n");
+                        out.write(Uname+" "+Pass+ " " + Name +"\n");
+
                         out.close();
-    
+
+                        BufferedWriter outstaff = new BufferedWriter(new FileWriter("staffid.txt", true));
+                        outstaff.write(IDmain);
+                        outstaff.close();
                     }
                     catch (IOException e) {
                         System.out.println("exception occoured" + e);
@@ -116,6 +135,7 @@ public class Admin
                      
                     System.out.println("***Successfully Registered***");
                     System.out.println("Do you want to Login To Staff Page?" + newline + "Enter 1 To Login" + newline + "Enter 2 To Goto Admin Home Page");
+                    System.out.println("Enter Choice: ");
                     int choice = sc.nextInt();
                     if (choice==1) 
                     {
@@ -128,7 +148,8 @@ public class Admin
                         System.out.println("Redirecting To Admin Home Page.....");
                         Adminmain();
                     }
-            content.close();          
+            content.close();
+            content2.close();          
                 }
         }
         else
