@@ -49,24 +49,24 @@ public class Admin
 
         System.out.println("Enter Name of Staff: ");
         String Name=sc.nextLine();
-        System.out.println(Name);
+        System.out.println("Entered Name: " + Name);
 
         System.out.println("Enter Desired ID for Staff: ");
         int ID=sc.nextInt();
         String IDmain = String.valueOf(ID);
-        System.out.println(IDmain);
+        IDmain=IDmain.trim();
+        System.out.println("Entered ID: " + IDmain);
         
         System.out.println("Enter User Name For Staff: ");
         String Uname=sc.nextLine() + sc.nextLine();
-        System.out.println(Uname);
+        System.out.println("Entered Username: " + Uname);
          
         System.out.println("Enter Password: ");
         String Pass=sc.nextLine();
-        System.out.println(Pass);
+        System.out.println("Entered Password: " + Pass);
          
         System.out.println("Confirm Password: ");
         String ConPass=sc.nextLine();
-        System.out.println(ConPass);
         Uname=Uname.trim();
         Pass=Pass.trim();
         ConPass=ConPass.trim();
@@ -84,19 +84,48 @@ public class Admin
               while (content2.hasNextLine()) 
               {
                 String data2 = content2.nextLine();
-                
-                
+                if (data2.equals(IDmain)) 
+                {
+                    System.out.println("*****You are already Registered or the ID is already taken*****");
+                    System.out.println("***You can either Register with new details or Login with other Details***");
+
+                    System.out.println("1. Registration For Staff ");
+                    System.out.println("2. Login For Staff ");
+                    System.out.println("3. Goto Admin Home Page");
+                    System.out.println("Enter Your Choice: ");
+                    int choiceherenow=sc.nextInt();
+                    if(choiceherenow==1)
+                    {
+                        addstaff();
+                        System.out.println("Redirecting to Staff Registration....");
+                    }
+                    else if(choiceherenow==2)
+                    {
+                        LMS.staffLogin();
+                        System.out.println("Redirecting to Staff Login......");
+                    }
+                    else if (choiceherenow==3)
+                    {
+                        Adminmain();
+                        System.out.println("Redirecting to Admin Login.......");
+                    }
+                    else
+                    {
+                        System.out.println("Choose Proper Option");
+                    }
+                    break;
+                }
               }
               
-               
-              int flag=0;
-              while (content.hasNextLine()) {
+              int flag2=0;
+              while (content.hasNextLine()) 
+              {
                 String data = content.nextLine();
                 if(data.equals(x))
                 {
                     System.out.println("*****You Are Already Registered*****");
                     System.out.println("***You can either Register with new details or Login With Current Details***");
-                    flag=1;
+                    flag2=1;
                     System.out.println("1. Registration. ");
                     System.out.println("2. Login. ");
                      
@@ -117,24 +146,27 @@ public class Admin
                     break;
                 }
               }
-                if(flag==0)
+                if(flag2==0)
                 {
                     try {
                         BufferedWriter out = new BufferedWriter(new FileWriter("StaffDets.txt", true)); 
                         out.write(Uname+" "+Pass+ " " + Name +"\n");
-
                         out.close();
 
-                        BufferedWriter outstaff = new BufferedWriter(new FileWriter("staffid.txt", true));
-                        outstaff.write(IDmain);
-                        outstaff.close();
+                        BufferedWriter outhere = new BufferedWriter(new FileWriter("staffdetslogin.txt", true)); 
+                        outhere.write(Uname+" "+Pass+"\n");
+                        outhere.close();
+
+                        BufferedWriter outnow = new BufferedWriter(new FileWriter("staffid.txt", true)); 
+                        outnow.write(IDmain+"\n");
+                        outnow.close();
                     }
                     catch (IOException e) {
                         System.out.println("exception occoured" + e);
                     }
                      
                     System.out.println("***Successfully Registered***");
-                    System.out.println("Do you want to Login To Staff Page?" + newline + "Enter 1 To Login" + newline + "Enter 2 To Goto Admin Home Page");
+                    System.out.println(">>>Where Do you wanna go next?" + newline + "Enter 1 To Login To Staff" + newline + "Enter 2 To Goto Admin Home Page" + newline + "Enter 3 To Goto Staff Registration");
                     System.out.println("Enter Choice: ");
                     int choice = sc.nextInt();
                     if (choice==1) 
@@ -147,6 +179,12 @@ public class Admin
                     {
                         System.out.println("Redirecting To Admin Home Page.....");
                         Adminmain();
+                    }
+
+                    else if(choice==3)
+                    {
+                        System.out.println("Redirecting To Staff Registration.....");
+                        addstaff();
                     }
             content.close();
             content2.close();          

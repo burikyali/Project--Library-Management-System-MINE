@@ -107,15 +107,14 @@ public class LMS
                 System.out.println("****Welcome To Admin Registration****");
                 System.out.println("Enter User Name For Registration: ");
                 String Uname=sc.nextLine();
-                System.out.println(Uname);
+                System.out.println("Entered Username: "+ Uname);
                 
                 System.out.println("Enter Password: ");
                 String Pass=sc.nextLine();
-                System.out.println(Pass);
+                System.out.println("Entered Password: " +Pass);
                 
                 System.out.println("Confirm Password: ");
                 String ConPass=sc.nextLine();
-                System.out.println(ConPass);
                 Uname=Uname.trim();
                 Pass=Pass.trim();
                 ConPass=ConPass.trim();
@@ -230,15 +229,14 @@ public class LMS
         System.out.println("Welcome To Student Registration");
         System.out.println("Enter User Name For Registration: ");
         String Uname=sc.nextLine();
-        System.out.println(Uname);
+        System.out.println("Entered Username: "+Uname);
          
         System.out.println("Enter Password: ");
         String Pass=sc.nextLine();
-        System.out.println(Pass);
+        System.out.println("Entered Password: " +Pass);
          
         System.out.println("Confirm Password: ");
         String ConPass=sc.nextLine();
-        System.out.println(ConPass);
         Uname=Uname.trim();
         Pass=Pass.trim();
         ConPass=ConPass.trim();
@@ -328,11 +326,11 @@ public class LMS
          
         System.out.println("Enter User Name: ");
         String Uname=sc.nextLine();
-        System.out.println(Uname);
+        System.out.println("Entered Username: "+Uname);
          
         System.out.println("Enter Password: ");
         String Pass=sc.nextLine();
-        System.out.println(Pass);
+        System.out.println("Entered Password: " +Pass);
         Uname=Uname.trim();
         Pass=Pass.trim();
         String x= Uname+" "+Pass;
@@ -399,11 +397,11 @@ public class LMS
          
         System.out.println("Enter User Name: ");
         String Uname=sc.nextLine();
-        System.out.println(Uname);
+        System.out.println("Entered Username: "+Uname);
          
         System.out.println("Enter Password: ");
         String Pass=sc.nextLine();
-        System.out.println(Pass);
+        System.out.println("Entered Password: " +Pass);
         Uname=Uname.trim();
         Pass=Pass.trim();
         String x= Uname+" "+Pass;
@@ -471,11 +469,11 @@ public class LMS
          
         System.out.println("Enter User Name: ");
         String Uname=sc.nextLine();
-        System.out.println(Uname);
+        System.out.println("Entered Username: "+Uname);
          
         System.out.println("Enter Password: ");
         String Pass=sc.nextLine();
-        System.out.println(Pass);
+        System.out.println("Entered Password: " +Pass);
         Uname=Uname.trim();
         Pass=Pass.trim();
         String x= Uname+" "+Pass;
@@ -536,11 +534,11 @@ public class LMS
          
         System.out.println("Enter User Name: ");
         String Uname=sc.nextLine();
-        System.out.println(Uname);
+        System.out.println("Entered Username: "+Uname);
          
         System.out.println("Enter Password: ");
         String Pass=sc.nextLine();
-        System.out.println(Pass);
+        System.out.println("Entered Password: " +Pass);
         Uname=Uname.trim();
         Pass=Pass.trim();
         String x= Uname+" "+Pass;
