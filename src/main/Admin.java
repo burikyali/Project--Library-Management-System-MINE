@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Admin 
@@ -42,7 +45,8 @@ public class Admin
 
     public static void addstaff() throws FileNotFoundException
     
-    {   
+    {
+        String comma =",";   
         String newline = System.lineSeparator();
         Scanner sc = new Scanner(System.in);
         System.out.println("Registering/Adding a New STAFF. Enter Details: ");
@@ -72,7 +76,7 @@ public class Admin
         ConPass=ConPass.trim();
         Name=Name.trim();
 
-        String x= Uname+" "+Pass;
+        String x= Uname;
         if(Pass.equals(ConPass))
         {
              
@@ -121,7 +125,9 @@ public class Admin
               while (content.hasNextLine()) 
               {
                 String data = content.nextLine();
-                if(data.equals(x))
+                String[] data1 = data.split(",");
+                List<String> datamain = new ArrayList<>(Arrays.asList(data1));
+                if(datamain.contains(x))
                 {
                     System.out.println("*****You Are Already Registered*****");
                     System.out.println("***You can either Register with new details or Login With Current Details***");
@@ -150,7 +156,7 @@ public class Admin
                 {
                     try {
                         BufferedWriter out = new BufferedWriter(new FileWriter("StaffDets.txt", true)); 
-                        out.write(IDmain + Name +" " + Uname+" "+Pass+ " " +"\n");
+                        out.write(IDmain +comma+ Name + comma + Uname+comma+Pass+"\n");
                         out.close();
 
                         BufferedWriter outhere = new BufferedWriter(new FileWriter("staffdetslogin.txt", true)); 
