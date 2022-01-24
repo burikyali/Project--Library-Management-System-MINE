@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class LMS 
@@ -16,7 +20,7 @@ public class LMS
         String Institutionname = scan.nextLine();
 
         System.out.println("Welcome to the Library Management System");
-        System.out.println( "******" + Institutionname + "********");
+        System.out.println( "********" + Institutionname + "********");
 
         loginmain();
         scan.close();
@@ -24,7 +28,7 @@ public class LMS
 
     public static void loginmain() throws FileNotFoundException
     {   
-        System.out.println("Home Page Of Library Management System");
+        System.out.println("Welcome To The Home Page Of Library Management System");
         Scanner scan = new Scanner(System.in);
         String newline = System.lineSeparator();
         System.out.println("Choose (Enter Number)" + newline + "1. Login" + newline + "2. Registration");
@@ -90,6 +94,7 @@ public class LMS
     
     public static void AdminRegistration() throws FileNotFoundException
     {
+        String comma = ",";
         Scanner sc=new Scanner(System.in);
         String newline = System.lineSeparator();
         System.out.println("Enter Admin Acess Code: ");
@@ -119,7 +124,7 @@ public class LMS
                 Pass=Pass.trim();
                 ConPass=ConPass.trim();
 
-                String x= Uname+" "+Pass;
+                String x= Uname;
                 if(Pass.equals(ConPass))
                 {
                     
@@ -131,7 +136,9 @@ public class LMS
                     while (content.hasNextLine()) 
                     {
                         String data = content.nextLine();
-                        if(data.equals(x))
+                        String[] data1 = data.split(",");
+                        List<String> datamain = new ArrayList<>(Arrays.asList(data1));
+                        if(datamain.contains(x))
                         {
                             System.out.println("*****You Are Already Registered*****");
                             System.out.println("***You can either Register with new details or Login With Current Details***");
@@ -160,7 +167,7 @@ public class LMS
                         {
                             try {
                                 BufferedWriter out = new BufferedWriter(new FileWriter("AdminDets.txt", true)); 
-                                out.write(Uname+" "+Pass+"\n");
+                                out.write(Uname+comma+Pass+"\n");
                                 out.close();
             
                             }
@@ -225,10 +232,73 @@ public class LMS
         
     public static void StudentRegistration() throws FileNotFoundException
     {
+        String comma = ",";
+        String newline = System.lineSeparator();
         Scanner sc=new Scanner(System.in);
         System.out.println("Welcome To Student Registration");
+
+        System.out.println("Enter Name of Student: ");
+        String Name=sc.nextLine();
+        System.out.println("Entered Name: " + Name);
+
+        System.out.println("Enter Roll No. Of Student: ");
+        int roll=sc.nextInt();
+        String rollstudent = String.valueOf(roll);
+        rollstudent=rollstudent.trim();
+
+        File studentroll = new File("studentroll.txt");
+        Scanner contentroll = new Scanner(studentroll);
+
+        while(contentroll.hasNextLine())
+        {
+            String studentroll0 = contentroll.nextLine();
+            if(studentroll0.equals(rollstudent))
+            {
+                System.out.println("*****Your Roll No. Is Already Registered*****");
+                System.out.println(">>>Available options now are: ");
+                System.out.println("1. Student Login" + newline + "2. Student Registration" + newline + "3. Home Page");
+                System.out.println("Enter Choice: ");
+                int choice = sc.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        Studentlogin();
+                        break;
+                
+                    case 2:
+                        StudentRegistration();
+                        break;
+                    
+                    case 3:
+                        loginmain();
+                        break;
+                }
+            }
+        }
+
+        contentroll.close();
+
+        System.out.println("Entered Roll No.: " + rollstudent);
+
+        Random random = new Random();
+        String memb = String.format("%04d", random.nextInt(10000));
+
+        File studentid = new File("studentid.txt");
+        Scanner content0 = new Scanner(studentid);
+        
+        do 
+        {
+            String memb1 = String.format("%04d", random.nextInt(10000));
+            memb=memb1;
+        } while (content0.equals(memb));
+
+        content0.close();
+
+        System.out.println("A Memebership number has been assigned to you:");
+        System.out.println("Your Membership Number: " + memb);
+
         System.out.println("Enter User Name For Registration: ");
-        String Uname=sc.nextLine();
+        String Uname=sc.nextLine() + sc.nextLine();
         System.out.println("Entered Username: "+Uname);
          
         System.out.println("Enter Password: ");
@@ -241,7 +311,7 @@ public class LMS
         Pass=Pass.trim();
         ConPass=ConPass.trim();
 
-        String x= Uname+" "+Pass;
+        String x= Uname;
         if(Pass.equals(ConPass))
         {
              
@@ -251,8 +321,10 @@ public class LMS
                
               int flag=0;
               while (content.hasNextLine()) {
-                String data = content.nextLine();
-                if(data.equals(x))
+                String datast = content.nextLine();
+                String[] data1 = datast.split(",");
+                List<String> datamain = new ArrayList<>(Arrays.asList(data1));
+                if(datamain.contains(x))
                 {
                     System.out.println("*****You Are Already Registered*****");
                     System.out.println("***You can either Register with new details or Login With Current Details***");
@@ -281,8 +353,12 @@ public class LMS
                 {
                     try {
                         BufferedWriter out = new BufferedWriter(new FileWriter("StudentDets.txt", true)); 
-                        out.write(Uname+" "+Pass+"\n");
+                        out.write(Name+ comma + rollstudent+ comma+ memb + comma+ Uname+ comma +Pass+"\n");
                         out.close();
+
+                        BufferedWriter outstud = new BufferedWriter(new FileWriter("studentid.txt", true)); 
+                        outstud.write(memb + " " +"\n");
+                        outstud.close();
     
                     }
                     catch (IOException e) {
@@ -404,7 +480,8 @@ public class LMS
         System.out.println("Entered Password: " +Pass);
         Uname=Uname.trim();
         Pass=Pass.trim();
-        String x= Uname+" "+Pass;
+        String x= Uname;
+        String y =Pass;
          
          
         try {
@@ -414,7 +491,9 @@ public class LMS
               int flag=0;
               while (content.hasNextLine()) {
                 String data = content.nextLine();
-                if(data.equals(x))
+                String[] data1 = data.split(",");
+                List<String> datamain = new ArrayList<>(Arrays.asList(data1));
+                if(datamain.contains(x) && datamain.contains(y))
                 {
                     System.out.println(">>Login Successful");
                     flag=1;
@@ -592,6 +671,11 @@ public class LMS
             }
          
         sc.close();
+    }
+
+    public static void Libraryrecords() 
+    {
+        
     }
 }   
 

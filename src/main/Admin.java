@@ -150,7 +150,7 @@ public class Admin
                 {
                     try {
                         BufferedWriter out = new BufferedWriter(new FileWriter("StaffDets.txt", true)); 
-                        out.write(Uname+" "+Pass+ " " + Name +"\n");
+                        out.write(IDmain + Name +" " + Uname+" "+Pass+ " " +"\n");
                         out.close();
 
                         BufferedWriter outhere = new BufferedWriter(new FileWriter("staffdetslogin.txt", true)); 
@@ -271,6 +271,26 @@ public class Admin
                 {  
                 System.out.println(sc.nextLine());      
                 }  
+
+                System.out.println("Where Do You wanna go next?"  +newline + "1. Make New Announcement" + newline +"2. Go To Admin Portal");
+                int choice = scan1.nextInt();
+
+                if (choice==1)
+                {
+                    System.out.println("Redirecting To Announcements.....");
+                    announcements();
+                }
+
+                else if (choice==2)
+                {
+                    System.out.println("Redirecting to Admin Portal...");
+                    Adminmain();
+                }
+                else
+                {
+                    System.out.println("Invalid Option selected. Redirecting to Admin Portal.....");
+                    Adminmain();
+                }
                 sc.close();     
             } 
             
